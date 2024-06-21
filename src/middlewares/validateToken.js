@@ -4,7 +4,7 @@ import { TOKEN_SECRET } from '../config.js';
 export const authRequired = (req, res, next) => {
     const { token } = req.cookies; // funciona por la libreria cookie-parser
     // NOTA: si prefieres el token puede venir tmb desde el body
-    console.log('*****COOKIES', req.cookies);
+    console.log('*****COOKIES', req);
     // Niega el acceso si NO hay token
     if (!token) return res.status(401).json({ message: 'No token, authorization denied' })
 
