@@ -10,7 +10,8 @@ import TaskRoutes from './routes/tasks.routes.js';
 const app = express();
 
 app.use(cors({ 
-    origin: 'http://localhost:5173', //// permite que solo este dominio se pueda comunicar con este servidor
+    // origin: 'http://localhost:5173', //// permite que solo este dominio se pueda comunicar con este servidor
+    origin: 'https://task-manager-on.netlify.app', 
     credentials: true   // para establecer las cookies 
 })); 
 app.use(morgan('dev'));
