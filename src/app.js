@@ -25,6 +25,6 @@ export default app;
 
 // npm i nodemon -D
 // npm i cookie-parser
-// npm i zod
+// npm i zod: para la creacion de los esquemas en la carpeta schemas y usarlos en la validacion de datos que llegan al servidor (es difente a los esquemas de mongodb que son para manipular la bd)
 // npm i cors  : para manejar la politica de seguridad de los navegadores, no se pueden comunicar 2 dominios diferentes
 // el front esta en http://localhost:5173 y el back en http://localhost:4000
