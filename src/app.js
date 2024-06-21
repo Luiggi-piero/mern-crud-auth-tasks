@@ -11,7 +11,7 @@ const app = express();
 
 app.use(cors({ 
     // origin: 'http://localhost:5173', //// permite que solo este dominio se pueda comunicar con este servidor
-    origin: 'https://task-manager-on.netlify.app', 
+    origin: 'https://task-manager-o.netlify.app', 
     credentials: true   // para establecer las cookies 
 })); 
 app.use(morgan('dev'));
