@@ -32,7 +32,7 @@ export const register = async (req, res) => {
         res.cookie('token', token, {
             httpOnly: true,
             secure: true, // Asegúrate de usar true en producción para HTTPS
-            sameSite: 'none'
+            sameSite: 'none'  // la cookie se enviará con todas las solicitudes entre sitios
         })
 
         // devolver al cliente los datos del usuario
@@ -66,7 +66,11 @@ export const login = async (req, res) => {
         const token = await createAccessToken({ id: userFound._id })
 
         // establece el token en una cookie
-        res.cookie('token', token)
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: true, // Asegúrate de usar true en producción para HTTPS
+            sameSite: 'none'
+        })
 
         // devolver al cliente los datos del usuario
         res.json({
