@@ -30,7 +30,7 @@ export const register = async (req, res) => {
 
         // establece el token en una cookie
         res.cookie('token', token, {
-            httpOnly: true,
+            httpOnly: false,
             secure: true, // Asegúrate de usar true en producción para HTTPS
             sameSite: 'none'  // la cookie se enviará con todas las solicitudes entre sitios
         })
@@ -67,9 +67,9 @@ export const login = async (req, res) => {
 
         // establece el token en una cookie
         res.cookie('token', token, {
-            httpOnly: true,
-            secure: true, // Asegúrate de usar true en producción para HTTPS
-            sameSite: 'none'
+            httpOnly: false, // true: no permite el acceso de la cookie con js desde el cliente y solo por http
+            secure: true, // Asegúrate de usar true en producción para HTTPS, true: la cookie solo se enviará a través de conexiones HTTPS.
+            sameSite: 'none' // La cookie se enviará con todas las solicitudes entre sitios. Para que esto funcione, secure debe estar establecido en true
         })
 
         // devolver al cliente los datos del usuario

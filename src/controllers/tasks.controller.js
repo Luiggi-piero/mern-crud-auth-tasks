@@ -2,13 +2,34 @@ import Task from '../models/task.model.js';
 
 export const getTasks = async (req, res) => {
     try {
-        // const tasks = await Task.find();  // trae todas las tareas de todos lo usuarios
 
+        const page = Number(req.query.page) || 1;
+        const taskLimit = 5;  // cantidad de registros por página
+        // Se ejecutan de manera simultánea y los resultados se mantienen en la desestructuración
+        const [tasks, count] = await Promise.all([
+            Task.find({user: req.user.id}).populate('user').skip((page - 1) * taskLimit).limit(taskLimit),
+            Task.find({user: req.user.id}).countDocuments()
+        ])
+        const pages = Math.ceil(count/taskLimit); // cantidad de páginas
+
+        // const tasks = await Task.find();  // trae todas las tareas de todos lo usuarios
         // trae todas las tareas donde la propiedad user tenga el id del usuario autenticado
-        const tasks = await Task.find({ user: req.user.id })
+        // TODO EL COMENTARIO MULTILINEA ERA EL ORIGINAL
+        /* const tasks = await Task.find({ user: req.user.id })
             .populate('user'); // agrega los datos de usuario que tiene referenciado la propiedad user
 
-        res.json(tasks);
+        res.json(tasks); */
+        
+        res.json({
+            info: {
+                count,
+                pages,
+                currentPage: page,
+                next: page + 1 > pages ? null: page + 1,
+                prev: page - 1 < 1 ? null: page - 1
+            },
+            results: tasks
+        });
     } catch (error) {
         return res.status(500).json({ message: 'Something went wrong' })
     }
